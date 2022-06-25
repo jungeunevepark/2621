@@ -21,6 +21,9 @@
     <!-- Custom styles for this template-->
     <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
 
+    {% block head %}
+
+    {% endblock %}
 </head>
 
 <body id="page-top">
@@ -133,15 +136,15 @@
                                 {% else %}
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">로그인</span>
                                 {% endif %}
-                                <img class="img-profile rounded-circle"
-                                    src="{% static 'img/undraw_profile.svg' %}">
+                                <img class="img-profile rounded-circle" src="{% static 'img/undraw_profile.svg' %}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
                                 {% if user.is_authenticated %}
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{% url 'logout' %}" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="{% url 'logout' %}" data-toggle="modal"
+                                    data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -162,9 +165,9 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                {% block content %}
-                
-                {% endblock %}
+                    {% block content %}
+
+                    {% endblock %}
 
                 </div>
                 <!-- /.container-fluid -->
@@ -230,5 +233,8 @@
     <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
 
 </body>
+{% block script %}
+
+{% endblock %}
 
 </html>

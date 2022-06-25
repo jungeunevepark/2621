@@ -6,7 +6,7 @@ from accounts import views as accounts_views
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('', views.load_map, name='map'),
+    # path('', views.load_map, name='freehome'),
 
     path('freehome/', views.home, name='home'),
     path('postcreate', views.postcreate, name='postcreate'),
@@ -17,7 +17,7 @@ urlpatterns = [
     path('logout/', accounts_views.logout, name='logout'),
     path('signup/', accounts_views.signup, name='signup'),
 
-    # path('', views.freehome, name='freehome'),
+    path('', views.freehome, name='freehome'),
     path('freepostcreate', views.freepostcreate, name='freepostcreate'),
     path('freedetail/<int:post_id>', views.freedetail, name='freedetail'),
     path('new_freecomment/<int:post_id>',

@@ -45,8 +45,11 @@ def new_comment(request, post_id):
 
 def freehome(request):
     # posts = Post.objects.all()
-    freeposts = FreePost.objects.filter().order_by('-date')
-    return render(request, 'free_index.html', {'freeposts': freeposts})
+    # freeposts = FreePost.objects.filter().order_by('-date')
+    # return render(request, 'free_index.html', {'freeposts': freeposts})
+    url = "https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId="
+    url += client_id
+    return render(request, 'map.html', {'mapUrl': url})
 
 
 def freepostcreate(request):
@@ -84,9 +87,11 @@ client_key = os.environ.get("CLIENT_KEY")
 
 def load_map(request):
 
-    map_osm = folium.Map()
-    map_osm = folium.Map(location=[37.4729081, 127.039306])
+    # map_osm = folium.Map()
+    # map_osm = folium.Map(location=[37.551718, 126.937803])
 
-    map_osm.save('map.html')
-
-    return render(request, 'map.html')
+    # map_osm.save('map.html')
+    url = "https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId="
+    url += client_id
+    return render(request, 'map.html', {'mapUrl': url})
+    # return render(request, 'map.html')

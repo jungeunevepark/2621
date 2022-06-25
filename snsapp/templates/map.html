@@ -1,86 +1,61 @@
 <!DOCTYPE html>
+<html>
 
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-
-    <script>
-        L_NO_TOUCH = false;
-        L_DISABLE_3D = false;
-    </script>
-
-    <style>
-        html,
-        body {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-    </style>
-    <style>
-        #map {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            left: 0;
-        }
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css" />
-
-    <meta name="viewport" content="width=device-width,
-                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <style>
-        #map_14c46ffbd59f7b452a5fa03ccf70c361 {
-            position: relative;
-            width: 100.0%;
-            height: 100.0%;
-            left: 0.0%;
-            top: 0.0%;
-        }
-    </style>
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>간단한 지도 표시하기</title>
+    <script type="text/javascript" src={{mapUrl}}></script>
 </head>
 
 <body>
+    <div id="map" style="width:100%;height:400px;"></div>
 
-    <div class="folium-map" id="map_14c46ffbd59f7b452a5fa03ccf70c361"></div>
+    <script>
 
-</body>
-<script>
+        //var HOME_PATH = window.HOME_PATH || '.';
+        const locations = [
+            { place: "예시1", lat: 37.54550348540605, lng: 126.95250745257879 },
+            { place: "예시2", lat: 37.55206269136996, lng: 126.93781971327617 },
+        ]
 
-    var map_14c46ffbd59f7b452a5fa03ccf70c361 = L.map(
-        "map_14c46ffbd59f7b452a5fa03ccf70c361",
-        {
-            center: [37.551718, 126.937803],
-            crs: L.CRS.EPSG3857,
-            zoom: 17,
-            zoomControl: true,
-            preferCanvas: false,
+        var position = new naver.maps.LatLng(37.55122746285047, 126.9386748177165)
+
+        var map = new naver.maps.Map('map', {
+            center: position,
+            zoom: 16
+        });
+
+        for (var i = 0; i < locations.length; i++) {
+            var marker = new naver.maps.Marker({
+                map: map,
+                title: locations[i].place,
+                position: new naver.maps.LatLng(locations[i].lat, locations[i].lng),
+            });
         }
-    );
 
+//     var markerOptions = {
+//         position: position.destinationPoint(90, 15),
+//         map: map,
+//         icon: {
+//             url: 'duck.png',
+//             size: new naver.maps.Size(50, 52),
+//             origin: new naver.maps.Point(0, 0),
+//             anchor: new naver.maps.Point(25, 26)
+//         }
+// };
 
+// var marker = new naver.maps.Marker(markerOptions);
 
+//var mapOptions = {
+//    center: new naver.maps.LatLng(37.3595704, 127.105399),
+//    zoom: 10
+//};
 
+//var map = new naver.maps.Map('map', mapOptions);
+    </script>
+</body>
 
-    var tile_layer_0e72ada66fce18588e801fd9b1eda7c9 = L.tileLayer(
-        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-        { "attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false }
-    ).addTo(map_14c46ffbd59f7b452a5fa03ccf70c361);
-
-
-
-</script>
+</html>
