@@ -2,10 +2,18 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import PostForm, CommentForm, FreeCommentForm, FreePostForm
 from .models import Post, FreePost
 
+from urllib import response
+import urllib.request
+from dotenv import load_dotenv
+import os
+import folium
+
+
 def home(request):
     # posts = Post.objects.all()
     posts = Post.objects.filter().order_by('-date')
-    return render(request, 'index.html', {'posts':posts})
+    return render(request, 'index.html', {'posts': posts})
+
 
 def postcreate(request):
     if request.method == 'POST' or request.method == 'FILES':
@@ -15,14 +23,17 @@ def postcreate(request):
             return redirect('home')
     else:
         form = PostForm()
-    return render(request, 'post_form.html', {'form':form})
+    return render(request, 'post_form.html', {'form': form})
+
 
 def detail(request, post_id):
     post_detail = get_object_or_404(Post, pk=post_id)
     comment_form = CommentForm()
-    return render(request, 'detail.html', {'post_detail':post_detail, 'comment_form': comment_form})
+    return render(request, 'detail.html', {'post_detail': post_detail, 'comment_form': comment_form})
 
 # 댓글 저장
+
+
 def new_comment(request, post_id):
     filled_form = CommentForm(request.POST)
     if filled_form.is_valid():
@@ -48,13 +59,13 @@ def freepostcreate(request):
             return redirect('freehome')
     else:
         form = FreePostForm()
-    return render(request, 'free_post_form.html', {'form':form})
+    return render(request, 'free_post_form.html', {'form': form})
 
 
 def freedetail(request, post_id):
     post_detail = get_object_or_404(FreePost, pk=post_id)
     comment_form = FreeCommentForm()
-    return render(request, 'free_detail.html', {'post_detail':post_detail, 'comment_form': comment_form})
+    return render(request, 'free_detail.html', {'post_detail': post_detail, 'comment_form': comment_form})
 
 
 def new_freecomment(request, post_id):
@@ -64,3 +75,18 @@ def new_freecomment(request, post_id):
         finished_form.post = get_object_or_404(FreePost, pk=post_id)
         finished_form.save()
     return redirect('freedetail', post_id)
+
+
+load_dotenv()
+client_id = os.environ.get("CLIENT_ID")
+client_key = os.environ.get("CLIENT_KEY")
+
+
+def load_map(request):
+
+    map_osm = folium.Map()
+    map_osm = folium.Map(location=[37.4729081, 127.039306])
+
+    map_osm.save('map.html')
+
+    return render(request, 'map.html')
